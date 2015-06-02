@@ -1,0 +1,49 @@
+<div style="max-width:300px; max-height:300px; margin:auto">
+  <div class="ct-chart ct-perfect-fourth"></div>
+</div>
+<div class="sqrs">
+  <div><div class="panel-red square" style="float:left"></div><span style="float:left">Horrible</span></div>
+  <div><div class="panel-yellow square" style="float:left"></div><span style="float:left">Medium</span></div>
+  <div><div class="panel-default square" style="float:left"></div><span style="float:left">Ok</span></div>
+</div>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<%= for respon <- @response do %>
+  <% a = Enum.with_index(respon) %>
+  <%= for {respon1,index} <- a do %>
+  <div class="panel panel-default">
+    <div class="panel-heading <%= if (respon1["priority"] == 1) do 'panel-red' else 'panel-yellow' end %>" role="tab" id="headingThree<%= index %>">
+      <h4 class="panel-title"><%= respon1["name"] %></h4>
+      <button class="btn btn-default" style="float: right;" type="button" data-toggle="collapse" data-target="#collapseFix<%= index %>" aria-expanded="false" aria-controls="collapseFix">Fix</button>
+      <button class="btn btn-default" style="float: right;" type="button" data-toggle="collapse" data-target="#collapseProblem<%= index %>" aria-expanded="false" aria-controls="collapseProblem<%= index %>">Problem</button>
+      <div class="clearfix"></div>
+    </div>
+    <div id="collapseFix<%= index %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree<%= index %>">
+      <div class="panel-body">
+        <%= respon1["problem"] %>
+      </div>
+    </div>
+    <div id="collapseProblem<%= index %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour<%= index %>">
+      <div class="panel-body">
+        <%= respon1["solution"] %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      var data = {
+        series: [<%= @first %>, <%= @second %>, <%= @third %>]
+      };
+
+      var sum = function(a, b) { return a + b };
+
+      new Chartist.Pie('.ct-chart', data, {
+        labelInterpolationFnc: function(value) {
+          return Math.round(value / data.series.reduce(sum) * 100) + '%';
+        }
+      });
+  });
+</script>

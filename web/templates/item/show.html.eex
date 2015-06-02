@@ -1,0 +1,17 @@
+<h2>Show item</h2>
+
+<ul>
+
+  <li>
+    <strong>IdAnalyze:</strong>
+    <%= @item.id_analyze %>
+  </li>
+
+  <li>
+    <strong>Content:</strong>
+    <%= @item.content %>
+  </li>
+
+</ul>
+
+<%= link "Back", to: item_path(@conn, :index) %>

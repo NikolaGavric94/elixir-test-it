@@ -1,0 +1,28 @@
+<h2>Listing items</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>IdAnalyze</th>
+      <th>Content</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for item <- @items do %>
+    <tr>
+      <td><%= item.id_analyze %></td>
+      <td><%= item.content %></td>
+
+      <td class="text-right">
+        <%= link "Show", to: item_path(@conn, :show, item), class: "btn btn-default btn-xs" %>
+        <%= link "Edit", to: item_path(@conn, :edit, item), class: "btn btn-default btn-xs" %>
+        <%= link "Delete", to: item_path(@conn, :delete, item), method: :delete, class: "btn btn-danger btn-xs" %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New item", to: item_path(@conn, :new) %>

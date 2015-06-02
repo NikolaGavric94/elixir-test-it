@@ -1,0 +1,4 @@
+<h1>Thank you for using our service to test your code</h1>
+<br>
+<br>
+<p>You will be able to view your static code analysis on <a href="/analyze?id=<%= @id %>">this link</a></p>
